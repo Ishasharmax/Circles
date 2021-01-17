@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Circle</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="CircleType-master/dist/circletype.min.js"></script>
+    <link rel="stylesheet" href="circle.css">
+</head>
+
+<body>
+
+    <div class="circle">
+        <canvas id="canvas" onClick="changeCol()" width=300 height=300></canvas>
+        <div class="myCircle2"></div>
+        <div class="bottom-right-quarter-circle"><img src="images/Visit%20Arrow.svg" class="bottom-right-image"></div>
+        <div class="bottom-left"><img src="images/Magnifier.svg" class="bottom-left-image"></div>
+        <div class="myCircle3">
+        </div>
+        <div class="myCircle4"></div>
+    </div>
+
+
+    <script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        ctx.lineWidth = 20;
+
+        var PI = Math.PI;
+        var rotation = 0;
+
+        var arcs = [];
+
+        var circles = [];
+
+
+        circles.push({
+            cx: 31,
+            cy: 96,
+            radius: 15,
+            content: "X",
+        });
+        circles.push({
+            cx: 103,
+            cy: 28,
+            radius: 15,
+            content: "X",
+        });
+        circles.push({
+            cx: 150,
+            cy: 150,
+            radius: 12,
+            content: "X",
+
+        });
+        circles.push({
+            cx: 150,
+            cy: 150,
+            radius: 12,
+            content: "X",
+
+        });
+
+        circles.push({
+            cx: 150,
+            cy: 150,
+            radius: 12,
+            content: "X",
+
+        });
+        circles.push({
+            cx: 150,
+            cy: 150,
+            radius: 12,
+            content: "X",
+
+        });
+
+        circles.push({
+            cx: 150,
+            cy: 150,
+            radius: 12,
+            content: "X",
+
+        });
+        circles.push({
+            cx: 150,
+            cy: 150,
+            radius: 12,
+            content: "X",
+
+        });
+
+
+        arcs.push({
+            cx: 150,
+            cy: 150,
+            radius: 130,
+            startAngle: -43,
+            endAngle: -2,
+            color: "#E4F3FF",
+            shadowBlur: 90,
+            shadowColor: "black",
+            shadowOffsetX: 90,
+            shadowOffsetY: 90
+        });
+        arcs.push({
+            cx: 150,
+            cy: 150,
+            radius: 130,
+            startAngle: 0,
+            endAngle: 45,
+            color: "#E4F3FF",
+            shadowBlur: 90,
+            shadowColor: "black",
+            shadowOffsetX: 90,
+            shadowOffsetY: 90
+
+        });
+        arcs.push({
+            cx: 150,
+            cy: 150,
+            radius: 130,
+            startAngle: 47,
+            endAngle: 88,
+            color: "#E4F3FF",
+            shadowBlur: 90,
+            shadowColor: "black",
+            shadowOffsetX: 90,
+            shadowOffsetY: 90
+        });
+        arcs.push({
+            cx: 150,
+            cy: 150,
+            radius: 130,
+            startAngle: 90,
+            endAngle: 135,
+            color: "dimgray",
+            shadowBlur: 90,
+            shadowColor: "black",
+            shadowOffsetX: 90,
+            shadowOffsetY: 90
+        });
+
+        arcs.push({
+            cx: 150,
+            cy: 150,
+            radius: 130,
+            startAngle: 137,
+            endAngle: 180,
+            color: "dimgray",
+            shadowBlur: 90,
+            shadowColor: "black",
+            shadowOffsetX: 90,
+            shadowOffsetY: 90
+        });
+        arcs.push({
+            cx: 150,
+            cy: 150,
+            radius: 130,
+            startAngle: 182,
+            endAngle: 225,
+            color: "red",
+            shadowBlur: 90,
+            shadowColor: "black",
+            shadowOffsetX: 90,
+            shadowOffsetY: 90
+        });
+
+        arcs.push({
+            cx: 150,
+            cy: 150,
+            radius: 130,
+            startAngle: 227,
+            endAngle: 272,
+            color: "red",
+            shadowBlur: 90,
+            shadowColor: "black",
+            shadowOffsetX: 90,
+            shadowOffsetY: 90
+        });
+        arcs.push({
+            cx: 150,
+            cy: 150,
+            radius: 130,
+            startAngle: 275,
+            endAngle: 313,
+            color: "#E4F3FF",
+            shadowBlur: 90,
+            shadowColor: "black",
+            shadowOffsetX: 90,
+            shadowOffsetY: 90
+        });
+
+
+        drawArcs();
+        drawCircles();
+
+
+        function drawArcs() {
+            for (var i = 0; i < arcs.length; i++) {
+                drawArc(arcs[i]);
+            }
+        }
+
+        function drawCircles() {
+            for (var i = 0; i < circles.length; i++) {
+                drawCircle(circles[i]);
+            }
+        }
+
+        function drawArc(a) {
+            ctx.save();
+            ctx.translate(a.cx, a.cy);
+            ctx.rotate(rotation * PI / 180);
+            ctx.beginPath();
+            ctx.arc(0, 0, a.radius, a.startAngle * PI / 180, a.endAngle * PI / 180);
+            ctx.strokeStyle = a.color;
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawCircle(a) {
+            ctx.save();
+            ctx.rotate(rotation * PI / 180);
+            ctx.beginPath();
+            ctx.arc(a.cx, a.cy, a.radius, 0, 2 * Math.PI, false);
+            ctx.fillStyle = 'red';
+            ctx.fill();
+            ctx.fillStyle = 'white';
+            ctx.font = "12px Verdana";
+            ctx.fillText(a.content, a.cx - 5, a.cy + 3);
+        }
+        
+        function changeCol(a){
+             ctx.save();
+            ctx.rotate(rotation * PI / 180);
+            ctx.beginPath();
+            ctx.arc(a.cx, a.cy, a.radius, 0, 2 * Math.PI, false);
+            ctx.fillStyle = 'grey';
+            ctx.fill();            
+        }
+    </script>
+
+
+
+    <!--
+    <div class="circle"></div>
+
+    <div class="myCircle"></div>
+    <div class="myCircle2"></div>
+    <div class="myCircle3"></div>
+    <div class="myCircle4"></div>
+    <div class="myCircle5"></div>
+
+    <div class="bottom-right-quarter-circle"><img src="images/Visit%20Arrow.svg" class="bottom-right-image"></div>
+
+
+    <div class="bottom-left"> <img src="images/Magnifier.svg" class="bottom-left-image"></div>
+-->
+
+
+    <h2 id="text" class="textCircle">Circle Name</h2>
+    <script>
+        new CircleType(document.getElementById('text'))
+            .radius(115);
+    </script>
+
+
+</body>
+
+</html>
